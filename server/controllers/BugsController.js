@@ -1,6 +1,6 @@
 import express from "express";
 import BugsService from "../services/BugsService";
-import NotesService from "../services/NotesService"
+import NotesService from "../services/NotesService";
 
 export default class BugsController {
 
@@ -10,7 +10,7 @@ export default class BugsController {
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
       .get("", this.getAll)
       .get("/:id", this.getById)
-      .get("/:id/notes", this.getNotesByBugId)
+      .get("/:bugid/:Notes", this.getNotesByBugId)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
@@ -26,7 +26,7 @@ export default class BugsController {
   }
   async getById(req, res, next) {
     try {
-      let data = await BugsService.findById(req.params.id);
+      let data = await BugsService.getById(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error)
@@ -43,7 +43,7 @@ export default class BugsController {
 
   async create(req, res, next) {
     try {
-      let data = await BugsService.create()
+      let data = await BugsService.create(req.body)
       return res.send(data)
     } catch (error) {
       next(error)
@@ -51,7 +51,7 @@ export default class BugsController {
   }
   async edit(req, res, next) {
     try {
-      let data = await BugsService.edit(req.params.id)
+      let data = await BugsService.edit(req.params.id, req.body)
       return res.send(data)
     } catch (error) {
       next(error)

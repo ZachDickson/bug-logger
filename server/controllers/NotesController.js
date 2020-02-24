@@ -6,7 +6,11 @@ export default class NotesController {
     this.router = express
       .Router()
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
-      .get("", this.getAll);
+      .get("", this.getAll)
+      .get("/:id", this.getById)
+      .post("", this.create)
+      .put("/:id", this.edit)
+      .delete("/:id", this.delete);
   }
 
   async getAll(req, res, next) {
@@ -20,7 +24,7 @@ export default class NotesController {
 
   async getById(req, res, next) {
     try {
-      let data = await NotesService.findById(req.params.id);
+      let data = await NotesService.getById(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error)
@@ -29,7 +33,7 @@ export default class NotesController {
 
   async create(req, res, next) {
     try {
-      let data = await NotesService.create()
+      let data = await NotesService.create(req.body)
       return res.send(data)
     } catch (error) {
       next(error)
@@ -37,7 +41,7 @@ export default class NotesController {
   }
   async edit(req, res, next) {
     try {
-      let data = await NotesService.edit(req.params.id)
+      let data = await NotesService.edit(req.params.id, Date)
       return res.send(data)
     } catch (error) {
       next(error)

@@ -6,7 +6,7 @@ const Note = new Schema(
   {
     content: { type: String, required: true },
     reportedBy: { type: String, required: true },
-    bug: { type: ObjectId, ref: "Bug", required: true }
+    bugId: { type: ObjectId, ref: "Bug", required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

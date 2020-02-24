@@ -3,23 +3,23 @@ import Bug from "../models/Bug";
 
 const _repository = mongoose.model("Bug", Bug);
 
-class BugService {
+class BugsService {
   async getAll() {
     return await _repository.find({});
   }
-  async findById(bugId) {
-    return await _repository.findById(bugId);
+  async getById(Id) {
+    return await _repository.findById(Id);
   }
-  async create() {
-    return await _repository.create();
+  async create(body) {
+    return await _repository.create(body);
   }
-  async edit(bugId, update) {
-    return await _repository.findByIdAndUpdate(bugId, update, { new: true });
+  async edit(Id, update) {
+    return await _repository.findByIdAndUpdate(Id, update, { new: true });
   }
-  async delete(bugId, update) {
-    return await _repository.findByIdAndDelete(bugId, update);
+  async delete(Id) {
+    return await _repository.findByIdAndDelete(Id);
   }
 }
 
-const bugsService = new BugService();
+const bugsService = new BugsService();
 export default bugsService;

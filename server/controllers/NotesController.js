@@ -1,5 +1,5 @@
 import express from "express";
-import notesService from "../services/NotesService";
+import NotesService from "../services/NotesService";
 
 export default class NotesController {
   constructor() {
@@ -11,10 +11,44 @@ export default class NotesController {
 
   async getAll(req, res, next) {
     try {
-      let data = await notesService.getAll();
+      let data = await NotesService.getAll();
       return res.send(data);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async getById(req, res, next) {
+    try {
+      let data = await NotesService.findById(req.params.id);
+      return res.send(data);
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async create(req, res, next) {
+    try {
+      let data = await NotesService.create()
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async edit(req, res, next) {
+    try {
+      let data = await NotesService.edit(req.params.id)
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async delete(req, res, next) {
+    try {
+      let data = await NotesService.delete(req.params.id)
+      return res.send(data)
+    } catch (error) {
+      next(error)
     }
   }
 }

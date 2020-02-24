@@ -4,9 +4,9 @@ const ObjectId = mongoose.SchemaTypes.ObjectId
 
 const Note = new Schema(
   {
-    content: { type: String, required: true },
-    reportedBy: { type: String, required: true },
-    bugId: { type: ObjectId, ref: "Bug", required: true }
+    content: { type: String },
+    reportedBy: { type: String },
+    bug: { type: ObjectId, ref: "Bug" }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

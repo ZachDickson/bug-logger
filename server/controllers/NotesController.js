@@ -41,7 +41,7 @@ export default class NotesController {
   }
   async edit(req, res, next) {
     try {
-      let data = await NotesService.edit(req.params.id, Date)
+      let data = await NotesService.edit(req.params.id, update)
       return res.send(data)
     } catch (error) {
       next(error)
